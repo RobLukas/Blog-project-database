@@ -1,29 +1,24 @@
 var express = require('express');
+var operationsSql = require('./src/scripts/operationsSql');
 
 var app = express();
 
 var port = process.env.PORT || 5000;
 
 app.use(express.static('public'));
-
 app.set('views', './src/views');
+app.set('view engine', 'ejs');
 
-// var adminRouter = require('./src/routes/adminRoutes');
-// var authRouter = require('./src/routes/authRoutes');
-// var profileRouter = require('./src/routes/profileRoutes');
-// var photoRouter = require('./src/routes/photoRoutes');
+var pageRouter = require('./src/routes/pageRoutes');
 
-// app.use('/Auth', authRouter);
-// app.use('/Admin', adminRouter);
-// app.use('/Auth/Profile', profileRouter);
+app.use('/post', pageRouter);
 
-// app.get('/', function (req, res) {
-//     res.render('log');
-// });
-app.listen(port, function (err) {
-    if (err)
-        console.log(err);
-    else
-        console.log('running server on port ' + port);
-});
+app.get('/', (req, res) => {
+  operationsSql.getPostFromDatabase((posts) => {
+        res.render('index', {posts: posts.recordset});
+    })
+})
 
+app.listen(port, (err) => {
+  err ? console.log(err) : console.log('running server on port ' + port);
+})
