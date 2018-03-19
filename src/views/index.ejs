@@ -11,7 +11,7 @@
     <title>Blog</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap-home/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-home/bootstrap.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
     <link href="css/blog-home.css" rel="stylesheet" type="text/css">
@@ -70,7 +70,7 @@
             <div class="card-body">
               <h2 class="card-title"><%= post.PostTitle %></h2>
               <p class="card-text"><%= post.PostText %></p>
-              <a href="/page/<%= post.PostID %>" class="btn btn-primary">Read More &rarr;</a>
+              <a href="/post/<%= post.PostID %>" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on <%= post.PostDate %> by
@@ -168,8 +168,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="jquery/home/jquery.min.js"></script>
-    <script src="js/home/bootstrap.bundle.min.js"></script>
+    <script src="jquery/home/jquery.js"></script>
+    <script src="js/home/bootstrap.js"></script>
 
   </body>
 
