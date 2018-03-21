@@ -1,4 +1,5 @@
-const config = {
+exports.config =
+{
     server: 'server-studia.database.windows.net',
     database: 'database-project-blog',
     user: 'roblukas',
@@ -6,7 +7,14 @@ const config = {
     port: 1433,
     options: {
           encrypt: true
-      }
-  };
+    }
+};
 
-exports.config = config;
+// exports.config = {
+//     host: 'server-studia.database.windows.net',
+//     user: 'roblukas',
+//     password: 'Zolwik123!',
+//     database: 'database-project-blog',
+//     port: 3306,
+//     ssl: false
+// }

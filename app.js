@@ -13,14 +13,14 @@ app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 var pageRouter = require('./src/routes/pageRoutes');
-
-require('./src/scripts/operationsSql');
+var formRouter = require('./src/routes/formRoutes');
 
 app.use('/post', pageRouter);
+app.use('/form', formRouter);
 
 app.get('/', (req, res) => {
-  operationsSql.getPostFromDatabase((posts) => {
-        res.render('index', {posts: posts.recordset});
+    operationsSql.getPostFromDatabase((posts) => {
+            res.render('index', {posts: posts.recordset});
     })
 })
 

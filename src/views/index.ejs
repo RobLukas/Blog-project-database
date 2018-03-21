@@ -37,7 +37,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="/form">Add post</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Login</a>
@@ -63,7 +63,7 @@
           </h1>
         -->
           <!-- Blog Post -->
-          <% if (posts != null) { %>
+        <% if (posts != null) { %> 
           <% posts.forEach((post) => { %>
           <div class="card mb-4">
             <img class="card-img-top" src=<%= post.PostImage %> alt="Card image cap">
@@ -75,12 +75,14 @@
             <div class="card-footer text-muted">
               Posted on <%= post.PostDate %> by
               <a href="#"><%= post.UserName %></a>
+              <a href="/post/<%= post.PostID %>/delete">Delete</a>
             </div>
           </div>
         <% }) %>
         <% } %>
 
           <!-- Pagination -->
+          <!--
           <ul class="pagination justify-content-center mb-4">
             <li class="page-item">
               <a class="page-link" href="#">&larr; Older</a>
@@ -89,7 +91,7 @@
               <a class="page-link" href="#">Newer &rarr;</a>
             </li>
           </ul>
-
+          -->
         </div>
 
         <!-- Sidebar Widgets Column -->
