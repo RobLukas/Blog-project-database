@@ -2,6 +2,7 @@
 <html lang="en">
 
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -10,15 +11,17 @@
     <title>Blog</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap-post/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../../css/bootstrap-home/bootstrap.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="../css/blog-post.css" rel="stylesheet" type="text/css">
+    <link href="../../css/blog-home.css" rel="stylesheet" type="text/css">
 
   </head>
 
   <body>
 
+
+    
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -37,9 +40,6 @@
               <a class="nav-link" href="/form">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/post/<%= post.PostID %>/edit">Edit</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
@@ -55,63 +55,44 @@
 
       <div class="row">
 
-        <!-- Post Content Column -->
-        <div class="col-lg-8">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+        <!--
+          <h1 class="my-4">Page Heading
+            <small>Secondary Text</small>
+          </h1>
+        -->
 
-          <!-- Title -->
-          <h1 class="mt-4"><%= post.PostTitle %></h1>
-
-          <!-- Author -->
-          <p class="lead">
-            by
-            <a href="#"><%= post.UserName %></a>
-          </p>
-
-          <hr>
-
-          <!-- Date/Time -->
-          <p>Posted on <%= post.PostDate %></p>
-
-          <hr>
-
-          <!-- Preview Image -->
-          <img class="img-fluid rounded" src=<%= post.PostImage %> alt="">
-
-          <hr>
-
-          <!-- Post Content -->
-          <p class="lead"><%= post.PostText %></p>
-
-          <hr>
-
-          <a href="/post/<%= post.PostID %>/edit" class="btn btn-primary">Edit</a>
-          <a href="/post/<%= post.PostID %>/delete" class="btn btn-primary">Delete</a>
-          <!-- Comments Form -->
-          <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+        <div class="col-md-8">
+            <h1 class="my-4">Edit post</h1>
+              <form action="/post/<%= postID %>/edit/submit" method="post">
+                  <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input name="editTitle" type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp" placeholder="Enter title" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputImage">Image address</label>
+                    <input name="editImage" type="text" class="form-control" id="inputImage" aria-describedby="imageHelp" placeholder="Enter image address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputText">Text</label>
+                    <textarea name="editText" class="form-control" id="inputText" rows="3" placeholder="Enter text" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
               </form>
-            </div>
           </div>
 
-          <!-- Comments -->
-
-          <% if (comments != null) { %>
-          <% comments.forEach((comment) => { %>
-          <div class="media mb-4">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter <%= comment.UserName %></h5>
-              <%= comment.Comment %>
-            </div>
-          </div>
-          <% }) %>
-          <% } %>
-
+          <!-- Pagination -->
+          <!--
+          <ul class="pagination justify-content-center mb-4">
+            <li class="page-item">
+              <a class="page-link" href="#">&larr; Older</a>
+            </li>
+            <li class="page-item disabled">
+              <a class="page-link" href="#">Newer &rarr;</a>
+            </li>
+          </ul>
+          -->
         </div>
 
         <!-- Sidebar Widgets Column -->
@@ -173,7 +154,7 @@
             </div>
           </div> -->
 
-        </div>
+        </div> 
 
       </div>
       <!-- /.row -->
@@ -190,8 +171,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../jquery/post/jquery.js"></script>
-    <script src="../js/post/bootstrap.js"></script>
+    <script src="../../jquery/home/jquery.js"></script>
+    <script src="../../js/home/bootstrap.js"></script>
 
   </body>
 

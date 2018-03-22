@@ -1,10 +1,10 @@
 var express = require('express');
-var pageRouter = express.Router();
+var postRouter = express.Router();
 var operationsSql = require('../scripts/operationsSql');
 var ConfigDatabase = require('../config/database-config-azure').config;
 var sql = require('mssql');
 
-pageRouter.get('/:id', (req, res) => {
+postRouter.get('/:id', (req, res) => {
     var conn = new sql.ConnectionPool(ConfigDatabase);
     conn.connect().then(() => {
         var request = new sql.Request(conn);
@@ -23,9 +23,7 @@ pageRouter.get('/:id', (req, res) => {
     })
 })
 
-
-
-pageRouter.get('/:id/delete', (req, res) => {
+postRouter.get('/:id/delete', (req, res) => {
     var conn = new sql.ConnectionPool(ConfigDatabase);
     conn.connect().then(() => {
         var request = new sql.Request(conn);
@@ -44,4 +42,27 @@ pageRouter.get('/:id/delete', (req, res) => {
     })
 })
 
-module.exports = pageRouter;
+postRouter.get('/:id/edit', (req, res) => {
+    res.render('edit', { postID: req.params.id });
+})
+
+postRouter.post('/:id/edit/submit', (req, res) => {
+    var conn = new sql.ConnectionPool(ConfigDatabase);
+    conn.connect().then(() => {
+        var request = new sql.Request(conn);
+        request.query('UPDATE Posts SET PostTitle = \'' + req.body.editTitle + '\', PostText=\'' + req.body.editText + '\', PostImage=\'' + req.body.editImage + '\' WHERE PostID=' + req.params.id).then(() => {
+            res.redirect('/');
+            conn.close();
+        }).catch((err) => {
+            conn.close();
+            console.log(err);
+            res.redirect('/');
+        })
+    }).catch((err) => {
+        conn.close();
+        console.log(err);
+        res.redirect('/');
+    })
+})
+
+module.exports = postRouter;

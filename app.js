@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-var pageRouter = require('./src/routes/pageRoutes');
+var postRouter = require('./src/routes/postRoutes');
 var formRouter = require('./src/routes/formRoutes');
 
-app.use('/post', pageRouter);
+app.use('/post', postRouter, );
 app.use('/form', formRouter);
 
 app.get('/', (req, res) => {
