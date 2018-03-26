@@ -40,10 +40,10 @@
               <a class="nav-link" href="/form">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
+              <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Register</a>
+              <a class="nav-link" href="/register">Register</a>
             </li>
           </ul>
         </div>
@@ -66,7 +66,7 @@
         <% if (posts != null) { %> 
           <% posts.forEach((post) => { %>
           <div class="card mb-4">
-            <img class="card-img-top" src=<%= post.PostImage %> alt="Card image cap">
+            <img class="card-img-top" src='<%= post.PostImage %>' alt="Card image cap">
             <div class="card-body">
               <h2 class="card-title"><%= post.PostTitle %></h2>
               <p class="card-text"><%= post.PostText %></p>

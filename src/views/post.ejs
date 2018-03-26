@@ -40,10 +40,10 @@
               <a class="nav-link" href="/post/<%= post.PostID %>/edit">Edit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Register</a>
+              <a class="nav-link" href="/register">Register</a>
             </li>
           </ul>
         </div>
@@ -90,11 +90,11 @@
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-              <form>
+              <form action="/post/<%= post.PostID %>/comment/submit" method="post">
                 <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea name="commentText" class="form-control" rows="3" maxlength="500" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Add comment</button>
               </form>
             </div>
           </div>
@@ -107,6 +107,9 @@
             <div class="media-body">
               <h5 class="mt-0">Commenter <%= comment.UserName %></h5>
               <%= comment.Comment %>
+              <h6>
+                <a href="/post/<%= post.PostID %>/comment/<%= comment.CommentID %>/delete">Delete</a>
+              </h6>
             </div>
           </div>
           <% }) %>

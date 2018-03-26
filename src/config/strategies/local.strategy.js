@@ -1,36 +1,18 @@
 var passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    mongodb = require('mongodb').MongoClient;
+    LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function () {
-passport.use(new LocalStrategy({
-            usernameField: 'userName',
-            passwordField: 'password',
-        },
-        function (username, password, done) {
-            var url = "mongodb://zolwik:yolo123@ds113915.mlab.com:13915/gallery";
-            mongodb.connect(url, function (err, db) {
-                var collection = db.collection('users');
-                collection.findOne({
-                        username: username
-                    },
-                    function (err, results) {
-                        if (err){
-                            return done(err);
-                        }
-                        if (!results){
-                            return done(null, false, {message: 'Niepoprawny email'})
-                        }
-                        if (results.password === password) {
-                            var user = results;
-                            return done(null, user);
-                        } else {
-                            return done(null, false, {
-                                message: 'Niepoprawny email/hasło'
-                            });
-                        }
-                    }
-                );
-            });
-        }));
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({ username: username }, function(err, user) {
+          if (err) { return done(err); }
+          if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+          }
+          if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+          return done(null, user);
+        });
+      }
 };
