@@ -12,7 +12,7 @@ postRouter.get('/:id', (req, res) => {
         request.input('id', sql.Int, req.params.id)
         .query('SELECT Posts.PostID, Users.UserName, Posts.PostTitle, Posts.PostText, Posts.PostImage, Posts.PostDate FROM Posts INNER JOIN Users ON Posts.UserID=Users.UserID WHERE Posts.PostID=@id').then((resultPost) => {
             request.query('SELECT Users.UserName, Comments.Comment, Comments.CommentID, Comments.PostID, Users.UserID FROM Comments INNER JOIN Users ON Comments.UserID=Users.UserID WHERE Comments.PostID=@id').then((resultComments) => {
-                res.render('post', {post: resultPost.recordset[0], comments: resultComments.recordset});
+                res.render('post', {post: resultPost.recordset[0], comments: resultComments.recordset, user: req.user});
                 conn.close();
             })
             .catch((err) => {
@@ -52,7 +52,10 @@ postRouter.get('/:id/delete', (req, res) => {
 })
 
 postRouter.get('/:id/edit', (req, res) => {
-    res.render('edit', { postID: req.params.id });
+    if (req.user)
+        res.render('edit', { postID: req.params.id, user: req.user });
+    else
+        res.redirect('/login');
 })
 
 postRouter.post('/:id/edit/submit', (req, res) => {
@@ -85,7 +88,8 @@ postRouter.post('/:id/comment/submit', (req, res) => {
         .input('commentText', sql.NVarChar, req.body.commentText)
         .input('date', sql.Date, date)
         .input('postId', sql.Int, req.params.id)
-        .query('INSERT INTO Comments VALUES (@commentText, @date, 2, @postId)').then(() => {
+        .input('userID', sql.Int, req.user.UserID)
+        .query('INSERT INTO Comments VALUES (@commentText, @date, @userID, @postId)').then(() => {
             res.redirect('/post/' + req.params.id);
             conn.close();
         })

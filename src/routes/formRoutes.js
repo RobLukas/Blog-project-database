@@ -5,7 +5,10 @@ var sql = require('mssql');
 var date = require('../scripts/getDate').date;
 
 formRouter.get('/', (req, res) => {
-    res.render('form');
+    if (req.user)
+        res.render('form', { user: req.user });
+    else
+        res.redirect('/login');
 })
 
 formRouter.post('/submit', (req, res) => {
@@ -17,7 +20,8 @@ formRouter.post('/submit', (req, res) => {
         .input('date', sql.Date, date)
         .input('text', sql.NVarChar, req.body.text)
         .input('image', sql.NVarChar, req.body.image)
-        .query('INSERT INTO Posts VALUES (@title, @date, @text, 1, @image)').then(() => {
+        .input('userID', sql.Int, req.user.UserID)
+        .query('INSERT INTO Posts VALUES (@title, @date, @text, @userID, @image)').then(() => {
             res.redirect('/');
             conn.close();
         }).catch((err) => {

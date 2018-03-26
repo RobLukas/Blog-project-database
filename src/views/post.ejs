@@ -33,18 +33,29 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <% if (user && user.UserName == post.UserName) { %>
             <li class="nav-item">
-              <a class="nav-link" href="/form">Add post</a>
+             <a class="nav-link" href="/post/<%= post.PostID %>/edit">Edit</a>
+            </li>
+            <% } %>
+            <% if (user) { %>
+            <li class="nav-item">
+            <a class="nav-link" href="/form">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/post/<%= post.PostID %>/edit">Edit</a>
+              <a class="nav-link" href="#"><%= user.UserName %></a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
+          <% } %>
           </ul>
         </div>
       </div>
@@ -84,9 +95,12 @@
 
           <hr>
 
+          <% if (user && user.UserName == post.UserName) { %>
           <a href="/post/<%= post.PostID %>/edit" class="btn btn-primary">Edit</a>
           <a href="/post/<%= post.PostID %>/delete" class="btn btn-primary">Delete</a>
+          <% } %>
           <!-- Comments Form -->
+          <% if (user) { %>
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
@@ -98,6 +112,7 @@
               </form>
             </div>
           </div>
+          <% } %>
 
           <!-- Comments -->
 
@@ -107,9 +122,11 @@
             <div class="media-body">
               <h5 class="mt-0">Commenter <%= comment.UserName %></h5>
               <%= comment.Comment %>
+              <% if (user && comment.UserID == user.UserID) { %>
               <h6>
                 <a href="/post/<%= post.PostID %>/comment/<%= comment.CommentID %>/delete">Delete</a>
               </h6>
+              <% } %>
             </div>
           </div>
           <% }) %>

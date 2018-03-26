@@ -36,15 +36,24 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <% if (!user) { %>
             <li class="nav-item">
-              <a class="nav-link" href="/form">Add post</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Add post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><%= user.UserName %></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <% } %>
           </ul>
         </div>
       </div>
