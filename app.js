@@ -19,6 +19,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
+require('./src/config/passport');
+
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
