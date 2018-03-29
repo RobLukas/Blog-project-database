@@ -29,10 +29,12 @@ app.set('view engine', 'ejs');
 var postRouter = require('./src/routes/postRoutes');
 var formRouter = require('./src/routes/formRoutes');
 var authRouter = require('./src/routes/authRoutes');
+var adminRouter = require('./src/routes/adminRoutes');
 
 app.use('/post', postRouter);
 app.use('/form', formRouter);
 app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
 
 app.get('/', (req, res) => {
     operationsSql.getPostFromDatabase((posts) => {

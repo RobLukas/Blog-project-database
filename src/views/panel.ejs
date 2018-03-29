@@ -47,15 +47,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
-            <% } else { %>
-            <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/register">Register</a>
-            </li>
-            <% } %>
-
+            <% }
           </ul>
         </div>
       </div>
@@ -73,31 +65,10 @@
             <small>Secondary Text</small>
           </h1>
         -->
-          <a href="#" class="btn btn-info btn-lg">
-            <span class="glyphicon glyphicon-sort-by-order"></span> Sort by newest
-          </a>
-          <a href="#" class="btn btn-info btn-lg">
-            <span class="glyphicon glyphicon-sort-by-order-alt"></span> Sort by lastest
-          </a>
-          
-          <!-- Blog Post -->
-        <% if (posts != null) { %> 
-          <% posts.forEach((post) => { %>
-          <div class="card mb-4">
-            <img class="card-img-top" src='<%= post.PostImage %>' alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title"><%= post.PostTitle %></h2>
-              <p class="card-text"><%= post.PostText %></p>
-              <a href="/post/<%= post.PostID %>" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on <%= post.PostDate %> by
-              <a href="#"><%= post.UserName %></a>
-            </div>
-          </div>
-        <% }) %>
-        <% } %>
-
+        
+        <ul class="list-group">
+            <li class="list-group-item">Cras justo odio</li>
+        </ul>
           <!-- Pagination -->
           <!--
           <ul class="pagination justify-content-center mb-4">

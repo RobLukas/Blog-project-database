@@ -37,9 +37,14 @@ authRouter.post('/signIn', passport.authenticate('local', {
     badRequestMessage: "Invalid username or password",
     failureFlash: true
 }), function (req, res) {
-    console.log('login correct');
-    console.log(req.user);
-    res.redirect('/');
+    if (req.user.isAdmin) {
+        res.redirect('/admin');
+    }
+    else {
+        console.log('login correct');
+        console.log(req.user);
+        res.redirect('/');
+    }
 });
 
 module.exports = authRouter;
