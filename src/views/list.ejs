@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="css/blog-home.css" rel="stylesheet" type="text/css">
 
+    <link href="css/datepicker/bootstrap-datepicker.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -42,9 +43,6 @@
             <a class="nav-link" href="/form">Add post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/list">List</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#"><%= user.UserName %></a>
             </li>
             <li class="nav-item">
@@ -52,16 +50,12 @@
             </li>
             <% } else { %>
             <li class="nav-item">
-              <a class="nav-link" href="/list">List</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
             <% } %>
-
           </ul>
         </div>
       </div>
@@ -70,33 +64,62 @@
     <!-- Page Content -->
     <div class="container">
 
-      <div class="row">
+
+      <div class="row" >
+
+      
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8" style="padding-top: 10px;">
+        <div class="col-md-8" style="padding-top: 30px; padding-bottom: 100px;">
         <!--
           <h1 class="my-4">Page Heading
             <small>Secondary Text</small>
           </h1>
         -->
-          
-          <!-- Blog Post -->
-        <% if (posts != null) { %> 
-          <% posts.forEach((post) => { %>
-          <div class="card mb-4">
-            <img class="card-img-top" src='<%= post.PostImage %>' alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title"><%= post.PostTitle %></h2>
-              <p class="card-text"><%= post.PostText %></p>
-              <a href="/post/<%= post.PostID %>" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on <%= post.PostDate %> by
-              <a href="#"><%= post.UserName %></a>
+
+        <form id='form' onsubmit='submitDate()'>
+          <div class="input-group date">
+            <input name='date' type="text" class="datepicker" value=<%= realDate %>>
+            <div class="input-group-addon">
+              <button type="submit" class="btn btn-primary">Find</button>
             </div>
           </div>
+        </form>
+
+
+        <style>
+          .padding-text {
+            padding-left: 70px;
+          }
+          .center {
+            text-align: center;
+          }
+        </style>
+  
+      <table class="table">
+        <thead class="thead-light">
+          <tr class='center'>
+            <th scope="col">UserName</th>
+            <th scope="col">Number of posts</th>
+            <th scope="col">Sum of text at posts</th>
+            <th scope="col">Number of comments</th>
+            <th scope="col">Sum of text at comments</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% if (results != null) {%>
+        <% results.forEach((result) => { %>
+          <tr>
+            <td class='padding-text'><%= result.UserName %></td>
+            <td class='center'><%= result.cntPost %></td>
+            <td class='center'><%= result.lengthTextPost %></td>
+            <td class='center'><%= result.cntComment %></td>
+            <td class='center'><%= result.lengthTextComment %></td>
+          </tr>
         <% }) %>
         <% } %>
+        </tbody>
+      </table>
 
           <!-- Pagination -->
           <!--
@@ -115,8 +138,8 @@
         <!-- <div class="col-md-4"> -->
 
           <!-- Search Widget -->
-          <!-- <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+           <div class="card my-4">
+          <!--  <h5 class="card-header">Search</h5>
             <div class="card-body">
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for...">
@@ -124,8 +147,9 @@
                   <button class="btn btn-secondary" type="button">Go!</button>
                 </span>
               </div>
-            </div>
-          </div> -->
+            </div> -->
+
+          </div>
 
           <!-- Categories Widget -->
           <!-- <div class="card my-4">
@@ -189,7 +213,21 @@
     <!-- Bootstrap core JavaScript -->
     <script src="jquery/home/jquery.js"></script>
     <script src="js/home/bootstrap.js"></script>
+    <script src="js/datepicker/bootstrap-datepicker.js"></script>
+    <script>
+      $(function() {
+        $('.datepicker').datepicker({
+          format: 'yyyy-m-d',
+          autoclose: true,
+        });
+      });
 
+      function submitDate() {
+        var actionSrc = 'http://localhost:5000/list/' + document.getElementByName('date')[0].value;
+        var form = document.getElementById('form');
+        form.action = actionSrc;
+      }
+    </script>
   </body>
 
 </html>

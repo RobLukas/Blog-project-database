@@ -624,7 +624,7 @@ pre code {
 .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
 .col-xl-auto {
   position: relative;
-  width: 100%;
+  width: 90%;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
@@ -1127,9 +1127,9 @@ pre code {
   }
   .col-md-8 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 66.666667%;
+    /* -ms-flex: 0 0 66.666667%;
     flex: 0 0 66.666667%;
-    max-width: 66.666667%;
+    max-width: 66.666667%; */
   }
   .col-md-9 {
     -webkit-box-flex: 0;

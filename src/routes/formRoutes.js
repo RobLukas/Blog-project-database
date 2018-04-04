@@ -21,8 +21,9 @@ formRouter.post('/submit', (req, res) => {
         .input('text', sql.NVarChar, req.body.text)
         .input('image', sql.NVarChar, req.body.image)
         .input('userID', sql.Int, req.user.UserID)
-        .query('INSERT INTO Posts VALUES (@title, @date, @text, @userID, @image)').then(() => {
+        .query('INSERT INTO Posts VALUES (@title, CURRENT_TIMESTAMP, @text, @userID, @image)').then(() => {
             res.redirect('/');
+            console.log(date);
             conn.close();
         }).catch((err) => {
             conn.close();
