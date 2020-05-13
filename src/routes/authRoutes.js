@@ -1,4 +1,5 @@
 var express = require('express');
+// uzywamy instancji Router do utworzenia modułowego obsługiwania tras(route)
 var authRouter = express.Router();
 var passport = require('passport');
 var sql = require('mssql');
@@ -13,10 +14,11 @@ authRouter.post('/signUp', function (req, res) {
         .input('password', sql.NVarChar, req.body.passwordRegister)
         .input('date', sql.Date, date)
         .query('SELECT * FROM Users WHERE Users.UserName = @username').then((result) => {
+            // wykonujemy zapytanie do bazy danych i następnie wywołujemy calback z argumentem z otrzymanymi danymi i je przetwarzamy.
             if (result.recordset.length == 0) {
                 request.query('INSERT INTO Users VALUES(@username, @password, @date)').then(() => {
                     request.query('SELECT * FROM Users WHERE Users.UserName = @username').then((user) => {
-                        req.login(user.recordset[0], function() {
+                        req.login(user, function() {
                             res.redirect('/');
                         })
                     })
@@ -34,7 +36,6 @@ authRouter.post('/signUp', function (req, res) {
 
 authRouter.post('/signIn', passport.authenticate('local', {
     failureRedirect: '/login',
-    badRequestMessage: "Invalid username or password",
     failureFlash: true
 }), function (req, res) {
     if (req.user.isAdmin) {
@@ -48,3 +49,5 @@ authRouter.post('/signIn', passport.authenticate('local', {
 });
 
 module.exports = authRouter;
+
+// i montujemy moduł routera na sciezce głownej app

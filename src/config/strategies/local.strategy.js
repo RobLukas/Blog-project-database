@@ -15,6 +15,7 @@ passport.use(new LocalStrategy({
       .query('SELECT * FROM Users WHERE Users.UserName = @username', function(err, user) {
           if (err) { return done(err); }
           if (!user.recordset.length) {
+            // weryfikacyjne wywołanie zwrotne
             return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
           }
           if (!(user.recordset[0].UserPassword == password)) {

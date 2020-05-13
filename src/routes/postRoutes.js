@@ -13,6 +13,8 @@ postRouter.get('/:id', (req, res) => {
         .query('SELECT Posts.PostID, Users.UserName, Posts.PostTitle, Posts.PostText, Posts.PostImage, Posts.PostDate FROM Posts INNER JOIN Users ON Posts.UserID=Users.UserID WHERE Posts.PostID=@id').then((resultPost) => {
             request.query('SELECT Users.UserName, Comments.Comment, Comments.CommentID, Comments.PostID, Users.UserID FROM Comments INNER JOIN Users ON Comments.UserID=Users.UserID WHERE Comments.PostID=@id').then((resultComments) => {
                 res.render('post', {post: resultPost.recordset[0], comments: resultComments.recordset, user: req.user});
+                postUserName = resultPost.recordset[0].UserName;
+                console.log(postUserName);
                 conn.close();
             })
             .catch((err) => {
